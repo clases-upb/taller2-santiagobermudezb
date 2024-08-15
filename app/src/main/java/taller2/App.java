@@ -1,27 +1,10 @@
-/*
- * Este es el segundo taller de lógica de programación. En este taller deben comenzar a prácticar hacer las validaciones
- * de los datos que va a recibir la función usando los condicionales if. 
- * 
- * Como en el anterior, tenga en cuenta la siguiente rúbrica para cada ejercicio la cual, 
- * se basa en los mandamientos del programador. El taller es una herramienta para comenzar a preparar la evaluación 
- * donde los descuentos si van a ser tenidos en cuenta. 
- * Con este taller, usted irá aprendiendo a aplicar buenas prácticas en la programación.
- * 
- * La siguiente rúbrica se descuenta en cada ejercicio y es acumulativa:
- * Descuento por quemar valores en el código y no usar constantes: -0.5
- * Descuento por no implementar control de errores con trycatch: -0.8
- * Descuento por no escribir el código ordenado, identado: -0.4
- * 
- * RÉTESE, PÓNGASE A PRUEBA!!!
- * 
- */
 package taller2;
 
 public class App {
 
     public static void main(String[] args) {
         try {
-            // Puedes agregar aquí la lógica de prueba para tus funciones
+            
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -38,14 +21,13 @@ public class App {
      * saldo_taquilla = base + total recaudos - total_retiros
      * Si hay algún error, retorne -1.
      */
-    public static int Calcular_saldo(int base_taquilla, int total_recaudos, int total_retiros) {
-        final int BASE_TAQUILLA_CORRECTA = 2000000;
+    public static int Calcular_saldo(int base_taquilla, int total_recaudos, int total_retiros){
+        final int BASE_TAQUILLA_VALIDO = 2000000;
         try {
-            if (base_taquilla == BASE_TAQUILLA_CORRECTA) {
-                return base_taquilla + total_recaudos - total_retiros;
-            } else {
+            if (base_taquilla != BASE_TAQUILLA_VALIDO) {
                 return -1;
             }
+            return base_taquilla + total_recaudos - total_retiros;
         } catch (Exception e) {
             return -1;
         }
@@ -59,29 +41,27 @@ public class App {
      * 
      * MUY IMPORTANTE:
      * 
-     * El formato del string debe ser: valor comida: $### - valor propina $### -
-     * valor impoconsumo $### - total a pagar $###.
+     * El formato del string debe ser: valor comida: $### - valor propina $### - valor impoconsumo $### - total a pagar $###.
      * 
      * Si hay algún error, retorne "Error en la función Calcular_tip".
      * 
      * Ademas de esto, primero valide que el valor del consumo sea mayor a 0. Si no
      * es así, retorne "Error calculando consumo".
      */
-    public static String Calcular_tip(float consumo_cliente) {
-        final float PROPORCION_PROPINA = 0.1f;
-        final float PROPORCION_IMPUESTO = 0.08f;
-
+    public static String Calcular_tip(float consumo_cliente){
+        final float PROPINAS_C = 0.1f;
+        final float IMPUESTO_CONSUMO_C = 0.08f;
+        
         try {
-            if (consumo_cliente <= 0) {
+            if(consumo_cliente <= 0) {
                 return "Error calculando consumo";
-            } else {
-                float valor_propina = consumo_cliente * PROPORCION_PROPINA;
-                float valor_imp_consumo = consumo_cliente * PROPORCION_IMPUESTO;
-                float total = consumo_cliente + valor_propina + valor_imp_consumo;
-
-                return String.format("valor comida: $%.2f - valor propina $%.2f - valor impoconsumo $%.2f - total a pagar $%.2f",
-                        consumo_cliente, valor_propina, valor_imp_consumo, total);
             }
+            float valor_propina = consumo_cliente * PROPINAS_C;
+            float valor_imp_consumo = consumo_cliente * IMPUESTO_CONSUMO_C;
+            float total = consumo_cliente + valor_propina + valor_imp_consumo;
+            
+            return String.format("valor comida: $%.2f - valor propina $%.2f - valor impoconsumo $%.2f - total a pagar $%.2f",
+                                 consumo_cliente, valor_propina, valor_imp_consumo, total);
         } catch (Exception e) {
             return "Error en la función Calcular_tip";
         }
@@ -98,16 +78,15 @@ public class App {
      * Valide ademas que los partidos ganados, perdidos y empatados sean mayores o
      * iguales a 0. Si no es así, retorne -1.
      */
-    public static int Obtener_puntos(int partidos_W, int partidos_L, int partidos_E) {
-        final byte PUNTOS_POR_VICTORIA = 3;
-        final byte PUNTOS_POR_EMPATE = 1;
-
+    public static int Obtener_puntos(int partidos_W, int partidos_L, int partidos_E){
+        final int PUNTOS_GANADO = 3;
+        final int PUNTOS_EMPATE = 1;
+        
         try {
-            if (partidos_W >= 0 && partidos_L >= 0 && partidos_E >= 0) {
-                return partidos_W * PUNTOS_POR_VICTORIA + partidos_E * PUNTOS_POR_EMPATE;
-            } else {
+            if (partidos_W < 0 || partidos_L < 0 || partidos_E < 0) {
                 return -1;
             }
+            return partidos_W * PUNTOS_GANADO + partidos_E * PUNTOS_EMPATE;
         } catch (Exception e) {
             return -1;
         }
@@ -122,28 +101,17 @@ public class App {
      * con los porcentajes o con las notas, retorne -1.
      */
     public static float Calcular_definitiva(float nota1, float nota2, float nota3, float nota4, float nota5,
-                                            float porcentaje1, float porcentaje2, float porcentaje3,
-                                            float porcentaje4, float porcentaje5) {
+                                             float porcentaje1, float porcentaje2, float porcentaje3, float porcentaje4, float porcentaje5){
         try {
-            float suma_porcentajes = porcentaje1 + porcentaje2 + porcentaje3 + porcentaje4 + porcentaje5;
+            float calculo_porcentajes = porcentaje1 + porcentaje2 + porcentaje3 + porcentaje4 + porcentaje5;
 
-            if (suma_porcentajes == 1 &&
-                porcentaje1 >= 0 && porcentaje1 <= 1 &&
-                porcentaje2 >= 0 && porcentaje2 <= 1 &&
-                porcentaje3 >= 0 && porcentaje3 <= 1 &&
-                porcentaje4 >= 0 && porcentaje4 <= 1 &&
-                porcentaje5 >= 0 && porcentaje5 <= 1 &&
-                nota1 >= 0 && nota1 <= 5 &&
-                nota2 >= 0 && nota2 <= 5 &&
-                nota3 >= 0 && nota3 <= 5 &&
-                nota4 >= 0 && nota4 <= 5 &&
-                nota5 >= 0 && nota5 <= 5) {
-
-                return nota1 * porcentaje1 + nota2 * porcentaje2 + nota3 * porcentaje3 +
-                       nota4 * porcentaje4 + nota5 * porcentaje5;
-            } else {
+            if (calculo_porcentajes != 1 || porcentaje1 < 0 || porcentaje1 > 1 || porcentaje2 < 0 || porcentaje2 > 1 ||
+                porcentaje3 < 0 || porcentaje3 > 1 || porcentaje4 < 0 || porcentaje4 > 1 || porcentaje5 < 0 || porcentaje5 > 1 ||
+                nota1 < 0 || nota1 > 5 || nota2 < 0 || nota2 > 5 || nota3 < 0 || nota3 > 5 || nota4 < 0 || nota4 > 5 || nota5 < 0 || nota5 > 5) {
                 return -1;
             }
+
+            return nota1 * porcentaje1 + nota2 * porcentaje2 + nota3 * porcentaje3 + nota4 * porcentaje4 + nota5 * porcentaje5;
         } catch (Exception e) {
             return -1;
         }
@@ -158,29 +126,18 @@ public class App {
      * está mal con los porcentajes o con las notas, retorne -1.
      */
     public static float Calcular_para_ganar(float nota1, float nota2, float nota3, float nota4,
-                                             float porcentaje1, float porcentaje2, float porcentaje3,
-                                             float porcentaje4, float porcentaje5) {
-        final float PUNTAJE_MINIMO = 3.0f;
+                                             float porcentaje1, float porcentaje2, float porcentaje3, float porcentaje4, float porcentaje5){
         try {
-            float suma_porcentajes = porcentaje1 + porcentaje2 + porcentaje3 + porcentaje4 + porcentaje5;
+            float calculo_porcentajes = porcentaje1 + porcentaje2 + porcentaje3 + porcentaje4 + porcentaje5;
 
-            if (suma_porcentajes == 1 &&
-                porcentaje1 >= 0 && porcentaje1 <= 1 &&
-                porcentaje2 >= 0 && porcentaje2 <= 1 &&
-                porcentaje3 >= 0 && porcentaje3 <= 1 &&
-                porcentaje4 >= 0 && porcentaje4 <= 1 &&
-                porcentaje5 >= 0 && porcentaje5 <= 1 &&
-                nota1 >= 0 && nota1 <= 5 &&
-                nota2 >= 0 && nota2 <= 5 &&
-                nota3 >= 0 && nota3 <= 5 &&
-                nota4 >= 0 && nota4 <= 5) {
-
-                float nota_actual = nota1 * porcentaje1 + nota2 * porcentaje2 + nota3 * porcentaje3 + nota4 * porcentaje4;
-                float nota_faltante = PUNTAJE_MINIMO - nota_actual;
-                return Math.round(nota_faltante / porcentaje5);
-            } else {
+            if (calculo_porcentajes != 1 || porcentaje1 < 0 || porcentaje1 > 1 || porcentaje2 < 0 || porcentaje2 > 1 ||
+                porcentaje3 < 0 || porcentaje3 > 1 || porcentaje4 < 0 || porcentaje4 > 1 || porcentaje5 < 0 || porcentaje5 > 1 ||
+                nota1 < 0 || nota1 > 5 || nota2 < 0 || nota2 > 5 || nota3 < 0 || nota3 > 5 || nota4 < 0 || nota4 > 5) {
                 return -1;
             }
+
+            float nota_a_sacar_parcial = 3 - (nota1 * porcentaje1 + nota2 * porcentaje2 + nota3 * porcentaje3 + nota4 * porcentaje4);
+            return nota_a_sacar_parcial / porcentaje5;
         } catch (Exception e) {
             return -1;
         }
@@ -200,19 +157,16 @@ public class App {
      * 
      * Si hay algún error, retorne -1.
      */
-    public static float Calcular_salario(int horas_normales, int horas_extra_diurnas, int horas_extra_nocturnas, float valor_hora) {
-        final float RECARGO_EXTRA_DIURNO = 0.15f;
-        final float RECARGO_EXTRA_NOCTURNO = 0.35f;
-
+    public static float Calcular_salario(int horas_trabajadas, int horas_extra_trabajadas, int horas_extra_nocturnas, float valor_hora){
+        final float HORA_EXTRA_BONUS = 0.15f;
+        final float HORAS_NOCTURNAS_BONUS = 0.35f;
+        
         try {
-            if (valor_hora > 0) {
-                float salario_total = valor_hora * horas_normales +
-                                      valor_hora * horas_extra_diurnas * (1 + RECARGO_EXTRA_DIURNO) +
-                                      valor_hora * horas_extra_nocturnas * (1 + RECARGO_EXTRA_NOCTURNO);
-                return salario_total;
-            } else {
+            if(valor_hora <= 0){
                 return -1;
             }
+            return valor_hora * horas_trabajadas + valor_hora * horas_extra_trabajadas * (1 + HORA_EXTRA_BONUS) +
+                   valor_hora * horas_extra_nocturnas * (1 + HORAS_NOCTURNAS_BONUS);
         } catch (Exception e) {
             return -1;
         }
@@ -229,15 +183,14 @@ public class App {
      * 
      * Si hay algún error, retorne -1.
      */
-    public static float Calcular_area_triangulo(float base, float altura) {
-        final float FACTOR_AREA = 0.5f;
-
+    public static float Calcular_area_triangulo(float base, float altura){
+        final float CONSTANTE_FORMULA = 0.5f;
+        
         try {
-            if (base > 0 && altura > 0) {
-                return FACTOR_AREA * base * altura;
-            } else {
+            if(base <= 0 || altura <= 0){
                 return -1;
             }
+            return CONSTANTE_FORMULA * base * altura;
         } catch (Exception e) {
             return -1;
         }
@@ -254,15 +207,14 @@ public class App {
      * 
      * Si hay algún error, retorne -1.
      */
-    public static float Calcular_perimetro_cuadrado(float lado) {
-        final int FACTOR_PERIMETRO = 4;
-
+    public static float Calcular_perimetro_cuadrado(float lado){
+        final float CONSTANTE_PERIMETRO = 4;
+        
         try {
-            if (lado > 0) {
-                return lado * FACTOR_PERIMETRO;
-            } else {
+            if(lado <= 0){
                 return -1;
             }
+            return lado * CONSTANTE_PERIMETRO;
         } catch (Exception e) {
             return -1;
         }
@@ -280,15 +232,14 @@ public class App {
      * 
      * Si hay algún error, retorne -1.
      */
-    public static float Calcular_volumen_cilindro(float radio_base, float altura_cilindro) {
+    public static float Calcular_volumen_cilindro(float radio_base, float altura_cilindro){
         final float PI = 3.1415927f;
-
+        
         try {
-            if (radio_base > 0 && altura_cilindro > 0) {
-                return PI * radio_base * radio_base * altura_cilindro;
-            } else {
+            if (radio_base <= 0 || altura_cilindro <= 0){
                 return -1;
             }
+            return PI * radio_base * radio_base * altura_cilindro;
         } catch (Exception e) {
             return -1;
         }
@@ -306,18 +257,16 @@ public class App {
      * 
      * Si hay algún error, retorne -1.
      */
-    public static float Calcular_area_circulo(float radio_circulo) {
+    public static float Calcular_area_circulo(float radio_circulo){
         final float PI = 3.1415927f;
-
+        
         try {
-            if (radio_circulo > 0) {
-                return PI * radio_circulo * radio_circulo;
-            } else {
+            if(radio_circulo <= 0){
                 return -1;
             }
+            return PI * radio_circulo * radio_circulo;
         } catch (Exception e) {
             return -1;
         }
     }
 }
-
